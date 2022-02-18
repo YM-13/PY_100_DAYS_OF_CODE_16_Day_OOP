@@ -1,30 +1,28 @@
-# # import another_module
-# # print(another_module.another_variable)
-#
-# # import turtle
-# # timmy = turtle.Turtle()
-# import turtle
-# from turtle import Turtle, Screen
-# timmy = Turtle()
-#
-# print(timmy)
-# timmy.shape("turtle")
-# timmy.color("DarkViolet")
-# timmy.forward(100)
-#
-# my_screen = Screen()
-# print(my_screen.canvheight)
-# my_screen.exitonclick()
+from coffee_maker import CoffeeMaker
+from menu import Menu, MenuItem
+from money_machine import MoneyMachine
+coffee_money = MoneyMachine()
+process_coffee = CoffeeMaker()
+drinks_order = Menu()
+
+order_name = input(f"What would you like ({drinks_order.get_items()})?: ")
+menu_item_object = drinks_order.find_drink(order_name)
+"""Получаем объект со всеми данными по напитку"""
+if order_name == "report":
+	process_coffee.report()
+	coffee_money.report()
 
 
-from prettytable import PrettyTable
-table = PrettyTable()
-table.add_column("Pokemon Name", ["Pikachu", "Squirtle", "Charmander"])
-table.add_column("Type", ["Electric", "Water", "Fire"])
+else:
+	if process_coffee.is_resource_sufficient(drinks_order.find_drink(order_name)) != None:
+		#coffee_money.make_payment(MenuItem(drinks_order.find_drink(order_name)))
+		print(drinks_order.find_drink(order_name))
+		process_coffee.make_coffee(drinks_order.find_drink(order_name))
+	else:
+		print("Impossible to make")
 
-table.align = "l" # используем атрибут   https://code.google.com/archive/p/prettytable/wikis/Tutorial.wiki
-#set_style()
 
 
-print(table)
+
+
 
